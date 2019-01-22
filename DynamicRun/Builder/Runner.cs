@@ -6,7 +6,7 @@ namespace DynamicRun.Builder
 {
     internal class Runner
     {
-        public void ExecuteAssembly(byte[] compiledAssembly, string[] args)
+        public void Execute(byte[] compiledAssembly, string[] args)
         {
             var assemblyLoadContextWeakRef = LoadAndExecute(compiledAssembly, args);
 

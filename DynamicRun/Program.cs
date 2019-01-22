@@ -22,7 +22,7 @@ namespace DynamicRun
             {
                 var changes = watcher.Changed.Throttle(TimeSpan.FromSeconds(.5)).Where(c => c.FullPath.EndsWith(@"Program.cs")).Select(c => c.FullPath);
 
-                changes.Subscribe(filepath => runner.ExecuteAssembly(compiler.CompileAndLoad(filepath), new[] { "France" }));
+                changes.Subscribe(filepath => runner.Execute(compiler.Compile(filepath), new[] { "France" }));
 
                 watcher.Start();
 

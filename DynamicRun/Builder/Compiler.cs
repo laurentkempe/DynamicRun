@@ -9,7 +9,7 @@ namespace DynamicRun.Builder
 {
     internal class Compiler
     {
-        public byte[] CompileAndLoad(string filepath)
+        public byte[] Compile(string filepath)
         {
             Console.WriteLine($"Starting compilation of: '{filepath}'");
 
