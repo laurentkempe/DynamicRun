@@ -2,7 +2,7 @@
 
 namespace Hello
 {
-    class Program
+    class DynamicProgram
     {
         static void Main(string[] args)
         {

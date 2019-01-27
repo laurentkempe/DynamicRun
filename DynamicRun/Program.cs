@@ -20,7 +20,7 @@ namespace DynamicRun
 
             using (var watcher = new ObservableFileSystemWatcher(c => { c.Path = @".\Sources"; }))
             {
-                var changes = watcher.Changed.Throttle(TimeSpan.FromSeconds(.5)).Where(c => c.FullPath.EndsWith(@"Program.cs")).Select(c => c.FullPath);
+                var changes = watcher.Changed.Throttle(TimeSpan.FromSeconds(.5)).Where(c => c.FullPath.EndsWith(@"DynamicProgram.cs")).Select(c => c.FullPath);
 
                 changes.Subscribe(filepath => runner.Execute(compiler.Compile(filepath), new[] { "France" }));
 

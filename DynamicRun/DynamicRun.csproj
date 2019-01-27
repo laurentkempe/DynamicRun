@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Sources\Program.cs" />
+    <Compile Remove="Sources\DynamicProgram.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Sources\Program.cs">
+    <Content Include="Sources\DynamicProgram.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
