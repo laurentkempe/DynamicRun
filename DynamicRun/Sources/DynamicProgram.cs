@@ -1,3 +1,6 @@
 ﻿using System;
 
-Console.WriteLine($"Hello World from {args[0]}!");
+const string s = $"Hello{" "}World"; // C# 10 Constant Interpolated Strings
+var hello = $"{s} from {args[0]}!";
+    
+Console.WriteLine(hello);
