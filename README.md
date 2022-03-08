@@ -1,6 +1,6 @@
 # DynamicRun
 
-Dynamically run code using .NET (Core 3.0, Core 3.1 and 5) Roslyn and AssemblyLoadContext
+Dynamically run code using .NET (Core 3.0, Core 3.1, 5 and 6) Roslyn and AssemblyLoadContext
 
 You can read about it on my blog "[Dynamically compile and run code using .NET Core 3.0](https://laurentkempe.com/2019/02/18/dynamically-compile-and-run-code-using-dotNET-Core-3.0/)"
 
