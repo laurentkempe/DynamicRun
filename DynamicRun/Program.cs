@@ -18,7 +18,7 @@ namespace DynamicRun
             var compiler = new Compiler();
             var runner = new Runner();
 
-            using (var watcher = new ObservableFileSystemWatcher(c => { c.Path = @".\Sources"; }))
+            using (var watcher = new ObservableFileSystemWatcher(c => { c.Path = @$".{Path.DirectorySeparatorChar}Sources"; }))
             {
                 var changes = watcher.Changed.Throttle(TimeSpan.FromSeconds(.5)).Where(c => c.FullPath.EndsWith(@"DynamicProgram.cs")).Select(c => c.FullPath);
 
