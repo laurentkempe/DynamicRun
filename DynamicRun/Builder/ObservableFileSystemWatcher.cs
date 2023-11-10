@@ -13,38 +13,18 @@ public sealed class ObservableFileSystemWatcher : IDisposable
     private readonly FileSystemWatcher _watcher;
 
     public IObservable<FileSystemEventArgs> Changed { get; private set; }
-    public IObservable<RenamedEventArgs> Renamed { get; private set; }
-    public IObservable<FileSystemEventArgs> Deleted { get; private set; }
-    public IObservable<ErrorEventArgs> Errors { get; private set; }
-    public IObservable<FileSystemEventArgs> Created { get; private set; }
 
     /// <summary>
     ///     Pass an existing FileSystemWatcher instance, this is just for the case where it's not possible to only pass the
     ///     configuration, be aware that disposing this wrapper will dispose the FileSystemWatcher instance too.
     /// </summary>
-    /// <param name="watcher"></param>
+    /// <param name="watcher">An existing instance of the FileSystemWatcher class</param>
     private ObservableFileSystemWatcher(FileSystemWatcher watcher)
     {
         _watcher = watcher;
 
         Changed = Observable
             .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => _watcher.Changed += h, h => _watcher.Changed -= h)
-            .Select(x => x.EventArgs);
-
-        Renamed = Observable
-            .FromEventPattern<RenamedEventHandler, RenamedEventArgs>(h => _watcher.Renamed += h, h => _watcher.Renamed -= h)
-            .Select(x => x.EventArgs);
-
-        Deleted = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => _watcher.Deleted += h, h => _watcher.Deleted -= h)
-            .Select(x => x.EventArgs);
-
-        Errors = Observable
-            .FromEventPattern<ErrorEventHandler, ErrorEventArgs>(h => _watcher.Error += h, h => _watcher.Error -= h)
-            .Select(x => x.EventArgs);
-
-        Created = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => _watcher.Created += h, h => _watcher.Created -= h)
             .Select(x => x.EventArgs);
     }
 
