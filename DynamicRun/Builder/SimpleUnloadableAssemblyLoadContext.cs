@@ -3,13 +3,8 @@ using System.Runtime.Loader;
 
 namespace DynamicRun.Builder;
 
-internal sealed class SimpleUnloadableAssemblyLoadContext : AssemblyLoadContext
+internal sealed class SimpleUnloadableAssemblyLoadContext() : AssemblyLoadContext(true)
 {
-    public SimpleUnloadableAssemblyLoadContext()
-        : base(true)
-    {
-    }
-
     protected override Assembly Load(AssemblyName assemblyName)
     {
         return null;
