@@ -18,3 +18,5 @@ watcher.Start();
 
 Console.WriteLine("Press any key to exit!");
 Console.ReadLine();
+
+watcher.Stop();
