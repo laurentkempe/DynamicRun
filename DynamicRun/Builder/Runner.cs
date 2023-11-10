@@ -29,9 +29,10 @@ internal static class Runner
 
         var entry = assembly.EntryPoint;
 
-        _ = entry != null && entry.GetParameters().Length > 0
-            ? entry.Invoke(null, new object[] {args})
-            : entry.Invoke(null, null);
+        if (entry != null)
+            _ = entry.GetParameters().Length > 0
+                ? entry.Invoke(null, new object[] { args })
+                : entry.Invoke(null, null);
 
         assemblyLoadContext.Unload();
 
