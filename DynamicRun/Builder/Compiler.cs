@@ -17,30 +17,28 @@ internal class Compiler
 
         var sourceCode = File.ReadAllText(filepath);
 
-        using (var peStream = new MemoryStream())
+        using var peStream = new MemoryStream();
+        var result = GenerateCode(sourceCode).Emit(peStream);
+
+        if (!result.Success)
         {
-            var result = GenerateCode(sourceCode).Emit(peStream);
+            Console.WriteLine("Compilation done with error.");
 
-            if (!result.Success)
+            var failures = result.Diagnostics.Where(diagnostic => diagnostic.IsWarningAsError || diagnostic.Severity == DiagnosticSeverity.Error);
+
+            foreach (var diagnostic in failures)
             {
-                Console.WriteLine("Compilation done with error.");
-
-                var failures = result.Diagnostics.Where(diagnostic => diagnostic.IsWarningAsError || diagnostic.Severity == DiagnosticSeverity.Error);
-
-                foreach (var diagnostic in failures)
-                {
-                    Console.Error.WriteLine("{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
-                }
-
-                return null;
+                Console.Error.WriteLine("{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
             }
 
-            Console.WriteLine("Compilation done without any error.");
-
-            peStream.Seek(0, SeekOrigin.Begin);
-
-            return peStream.ToArray();
+            return null;
         }
+
+        Console.WriteLine("Compilation done without any error.");
+
+        peStream.Seek(0, SeekOrigin.Begin);
+
+        return peStream.ToArray();
     }
 
     private static CSharpCompilation GenerateCode(string sourceCode)
