@@ -9,9 +9,9 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace DynamicRun.Builder;
 
-internal sealed class Compiler
+internal static class Compiler
 {
-    public byte[] Compile(string filepath)
+    public static byte[] Compile(string filepath)
     {
         Console.WriteLine($"Starting compilation of: '{filepath}'");
 

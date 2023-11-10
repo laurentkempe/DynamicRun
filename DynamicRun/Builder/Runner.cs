@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace DynamicRun.Builder;
 
-internal sealed class Runner
+internal static class Runner
 {
-    public void Execute(byte[] compiledAssembly, string[] args)
+    public static void Execute(byte[] compiledAssembly, string[] args)
     {
         var assemblyLoadContextWeakRef = LoadAndExecute(compiledAssembly, args);
 
