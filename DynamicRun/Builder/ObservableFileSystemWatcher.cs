@@ -10,7 +10,7 @@ namespace DynamicRun.Builder;
 /// </summary>
 public sealed class ObservableFileSystemWatcher : IDisposable
 {
-    public readonly FileSystemWatcher Watcher;
+    private readonly FileSystemWatcher Watcher;
 
     public IObservable<FileSystemEventArgs> Changed { get; private set; }
     public IObservable<RenamedEventArgs> Renamed { get; private set; }
