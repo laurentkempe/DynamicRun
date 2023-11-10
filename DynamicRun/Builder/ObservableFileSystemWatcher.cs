@@ -23,7 +23,7 @@ public sealed class ObservableFileSystemWatcher : IDisposable
     ///     configuration, be aware that disposing this wrapper will dispose the FileSystemWatcher instance too.
     /// </summary>
     /// <param name="watcher"></param>
-    public ObservableFileSystemWatcher(FileSystemWatcher watcher)
+    private ObservableFileSystemWatcher(FileSystemWatcher watcher)
     {
         Watcher = watcher;
 
