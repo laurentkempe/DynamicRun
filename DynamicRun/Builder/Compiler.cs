@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace DynamicRun.Builder;
 
-internal class Compiler
+internal sealed class Compiler
 {
     public byte[] Compile(string filepath)
     {

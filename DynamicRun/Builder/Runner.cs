@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace DynamicRun.Builder;
 
-internal class Runner
+internal sealed class Runner
 {
     public void Execute(byte[] compiledAssembly, string[] args)
     {

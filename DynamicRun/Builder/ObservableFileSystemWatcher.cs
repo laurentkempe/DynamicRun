@@ -8,7 +8,7 @@ namespace DynamicRun.Builder;
 ///     This is a wrapper around a file system watcher to use the Rx framework instead of event handlers to handle
 ///     notifications of file system changes.
 /// </summary>
-public class ObservableFileSystemWatcher : IDisposable
+public sealed class ObservableFileSystemWatcher : IDisposable
 {
     public readonly FileSystemWatcher Watcher;
 
