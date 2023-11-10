@@ -58,18 +58,9 @@ public sealed class ObservableFileSystemWatcher : IDisposable
         configure(Watcher);
     }
 
-    public void Start()
-    {
-        Watcher.EnableRaisingEvents = true;
-    }
+    public void Start() => Watcher.EnableRaisingEvents = true;
 
-    public void Stop()
-    {
-        Watcher.EnableRaisingEvents = false;
-    }
+    public void Stop() => Watcher.EnableRaisingEvents = false;
 
-    public void Dispose()
-    {
-        Watcher.Dispose();
-    }
+    public void Dispose() => Watcher.Dispose();
 }

@@ -5,8 +5,5 @@ namespace DynamicRun.Builder;
 
 internal sealed class SimpleUnloadableAssemblyLoadContext() : AssemblyLoadContext(true)
 {
-    protected override Assembly Load(AssemblyName assemblyName)
-    {
-        return null;
-    }
+    protected override Assembly Load(AssemblyName assemblyName) => null;
 }
