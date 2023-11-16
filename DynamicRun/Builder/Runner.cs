@@ -2,42 +2,40 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace DynamicRun.Builder
+namespace DynamicRun.Builder;
+
+internal static class Runner
 {
-    internal class Runner
+    public static void Execute(byte[] compiledAssembly, string[] args)
     {
-        public void Execute(byte[] compiledAssembly, string[] args)
+        var assemblyLoadContextWeakRef = LoadAndExecute(compiledAssembly, args);
+
+        for (var i = 0; i < 8 && assemblyLoadContextWeakRef.IsAlive; i++)
         {
-            var assemblyLoadContextWeakRef = LoadAndExecute(compiledAssembly, args);
-
-            for (var i = 0; i < 8 && assemblyLoadContextWeakRef.IsAlive; i++)
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-            }
-
-            Console.WriteLine(assemblyLoadContextWeakRef.IsAlive ? "Unloading failed!" : "Unloading success!");
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private static WeakReference LoadAndExecute(byte[] compiledAssembly, string[] args)
-        {
-            using (var asm = new MemoryStream(compiledAssembly))
-            {
-                var assemblyLoadContext = new SimpleUnloadableAssemblyLoadContext();
+        Console.WriteLine(assemblyLoadContextWeakRef.IsAlive ? "Unloading failed!" : "Unloading success!");
+    }
 
-                var assembly = assemblyLoadContext.LoadFromStream(asm);
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    private static WeakReference LoadAndExecute(byte[] compiledAssembly, string[] args)
+    {
+        using var asm = new MemoryStream(compiledAssembly);
+        var assemblyLoadContext = new SimpleUnloadableAssemblyLoadContext();
 
-                var entry = assembly.EntryPoint;
+        var assembly = assemblyLoadContext.LoadFromStream(asm);
 
-                _ = entry != null && entry.GetParameters().Length > 0
-                    ? entry.Invoke(null, new object[] {args})
-                    : entry.Invoke(null, null);
+        var entry = assembly.EntryPoint;
 
-                assemblyLoadContext.Unload();
+        if (entry != null)
+            _ = entry.GetParameters().Length > 0
+                ? entry.Invoke(null, new object[] { args })
+                : entry.Invoke(null, null);
 
-                return new WeakReference(assemblyLoadContext);
-            }
-        }
+        assemblyLoadContext.Unload();
+
+        return new WeakReference(assemblyLoadContext);
     }
 }
