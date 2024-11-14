@@ -43,7 +43,7 @@ internal static class Compiler
     private static CSharpCompilation GenerateCode(string sourceCode)
     {
         var codeString = SourceText.From(sourceCode);
-        var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp11);
+        var options = CSharpParseOptions.Default.WithLanguageVersion(LanguageVersion.CSharp13);
 
         var parsedSyntaxTree = SyntaxFactory.ParseSyntaxTree(codeString, options);
 
