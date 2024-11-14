@@ -12,8 +12,6 @@ public sealed class ObservableFileSystemWatcher : IDisposable
 {
     private readonly FileSystemWatcher _watcher;
 
-    public IObservable<FileSystemEventArgs> Changed { get; private set; }
-
     /// <summary>
     ///     Pass an existing FileSystemWatcher instance, this is just for the case where it's not possible to only pass the
     ///     configuration, be aware that disposing this wrapper will dispose the FileSystemWatcher instance too.
@@ -24,7 +22,9 @@ public sealed class ObservableFileSystemWatcher : IDisposable
         _watcher = watcher;
 
         Changed = Observable
-            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => _watcher.Changed += h, h => _watcher.Changed -= h)
+            .FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(
+                h => _watcher.Changed += h,
+                h => _watcher.Changed -= h)
             .Select(x => x.EventArgs);
     }
 
@@ -33,14 +33,13 @@ public sealed class ObservableFileSystemWatcher : IDisposable
     ///     the configuration.
     /// </summary>
     public ObservableFileSystemWatcher(Action<FileSystemWatcher> configure)
-        : this(new FileSystemWatcher())
-    {
-        configure(_watcher);
-    }
+        : this(new FileSystemWatcher()) => configure(_watcher);
+
+    public IObservable<FileSystemEventArgs> Changed { get; private set; }
+
+    public void Dispose() => _watcher.Dispose();
 
     public void Start() => _watcher.EnableRaisingEvents = true;
 
     public void Stop() => _watcher.EnableRaisingEvents = false;
-
-    public void Dispose() => _watcher.Dispose();
 }

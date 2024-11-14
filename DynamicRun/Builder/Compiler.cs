@@ -24,12 +24,11 @@ internal static class Compiler
         {
             Console.WriteLine("Compilation done with error.");
 
-            var failures = result.Diagnostics.Where(diagnostic => diagnostic.IsWarningAsError || diagnostic.Severity == DiagnosticSeverity.Error);
+            var failures = result.Diagnostics.Where(diagnostic =>
+                diagnostic.IsWarningAsError || diagnostic.Severity == DiagnosticSeverity.Error);
 
             foreach (var diagnostic in failures)
-            {
                 Console.Error.WriteLine("{0}: {1}", diagnostic.Id, diagnostic.GetMessage());
-            }
 
             return null;
         }
@@ -53,14 +52,14 @@ internal static class Compiler
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(Console).Assembly.Location)
         };
-            
+
         Assembly.GetEntryAssembly()?.GetReferencedAssemblies().ToList()
             .ForEach(a => references.Add(MetadataReference.CreateFromFile(Assembly.Load(a).Location)));
 
         return CSharpCompilation.Create("Hello.dll",
-            new[] { parsedSyntaxTree }, 
-            references: references, 
-            options: new CSharpCompilationOptions(OutputKind.ConsoleApplication, 
+            syntaxTrees: [parsedSyntaxTree],
+            references: references,
+            options: new CSharpCompilationOptions(OutputKind.ConsoleApplication,
                 optimizationLevel: OptimizationLevel.Release,
                 assemblyIdentityComparer: DesktopAssemblyIdentityComparer.Default));
     }
