@@ -1,7 +1,7 @@
-﻿using DynamicRun.Builder;
-using System;
+﻿using System;
 using System.IO;
 using System.Reactive.Linq;
+using DynamicRun.Builder;
 
 var sourcesPath = Path.Combine(Environment.CurrentDirectory, "Sources");
 

@@ -1,23 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-  </PropertyGroup>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <LangVersion>13</LangVersion>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Sources\DynamicProgram.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sources\DynamicProgram.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    <ItemGroup>
+        <Compile Remove="Sources\DynamicProgram.cs"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Sources\DynamicProgram.cs">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="4.7.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
-    <PackageReference Include="System.Reactive" Version="6.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="4.12.0"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0"/>
+        <PackageReference Include="System.Reactive" Version="6.0.1"/>
+    </ItemGroup>
 
 </Project>
