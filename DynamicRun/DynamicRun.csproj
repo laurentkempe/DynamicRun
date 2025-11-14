@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net9.0</TargetFramework>
-        <LangVersion>13</LangVersion>
+        <TargetFramework>net10.0</TargetFramework>
+        <LangVersion>14</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,9 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="4.12.0"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0"/>
-        <PackageReference Include="System.Reactive" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.Compilers" Version="5.0.0-2.final" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0-2.final" />
+        <PackageReference Include="System.Reactive" Version="6.1.0" />
     </ItemGroup>
 
 </Project>
